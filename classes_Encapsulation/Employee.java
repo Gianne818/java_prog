@@ -15,16 +15,17 @@ public class Employee {
         this.ID = "null";
     }
 
-    //getters
-    public String getName(){
-        return name;
-    }
 
     private boolean verifyPass(Scanner sc){
         System.out.print("Enter password: ");
         int pass = sc.nextInt();
         sc.nextLine();
         return pass==123456;
+    }
+
+    //getters
+    public String getName(){
+        return name;
     }
 
     protected float getSalary(Scanner sc){

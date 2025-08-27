@@ -15,6 +15,7 @@ public class Bird {
         this.Wingspan = 0.0f;
     }
 
+
     public void displayBird(){
         System.out.println("Specie: " + Specie + "\nWingspan: " + Wingspan + "\n");
     }
