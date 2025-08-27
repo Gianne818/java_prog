@@ -1,13 +1,15 @@
 package classes_Interface;
-import classes_Interface.Classes.Subclasses.Apple;
+
 import classes_Interface.Classes.Subclasses.Samsung;
+import classes_Interface.Classes.Subclasses.iPhone;
 
 public class Main {
     public static void main (String[] args){
-        Apple a1 = new Apple("Iphone 14", "5G", "OLED", "A16 Bionic");
+        iPhone a1 = new iPhone("Iphone 14", "5G", "OLED", "A16 Bionic", "26.0");
         Samsung s1 = new Samsung("Galaxy S25 Ultra", "5G", "OLED", "Snapdragon 8 Elite");
         a1.displayBrand();
         a1.displaySpecs();
+        a1.displayOSVersion();
 
         System.out.println();
         s1.displayBrand();
