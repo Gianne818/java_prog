@@ -23,5 +23,7 @@ public class Samsung implements Smartphones {
     public void displayBrand(){
         System.out.println(brand);
     }
+
+
     
 }

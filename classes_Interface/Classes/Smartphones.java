@@ -15,7 +15,8 @@ public interface Smartphones {
 
 
     //abstract methods
-    public abstract void displaySpecs();
-    public abstract void displayBrand();
+    public void displaySpecs();
+    public void displayBrand();
 
-}
+
+} 

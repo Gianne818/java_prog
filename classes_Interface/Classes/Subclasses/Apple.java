@@ -24,4 +24,5 @@ public class Apple implements Smartphones {
     public void displayBrand(){
         System.out.println(brand);
     }
+     
 }
