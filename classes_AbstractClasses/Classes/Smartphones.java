@@ -19,6 +19,9 @@ public abstract class Smartphones {
     //Default constructor is needed unless you invoke Smartphone constructor on subclasses
     //public Smartphones(){} not included for demonstration sake
 
+    //abstract methods
     public abstract void displaySpecs();
     public abstract void displayBrand();
+
+    //may contain concrete methods
 }
