@@ -13,6 +13,7 @@ public class Samsung implements Smartphones {
         this.soc = soc;
     }
 
+    @Override
     public void displaySpecs(){
         System.out.println("Model: " + model);
         System.out.println("Network: " + network);
@@ -20,6 +21,7 @@ public class Samsung implements Smartphones {
         System.out.println("SoC: " + soc);
     }
 
+    @Override
     public void displayBrand(){
         System.out.println(brand);
     }
