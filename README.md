@@ -28,7 +28,7 @@ Object-oriented programming is about creating objects that contain both data and
   Mechanism that allows one class to acquire the properties and behaviors (fields and methods) of another class. This promotes code reusability and establishes a natural hierarchy between classes.
 
 - **Polymorphism**  
-  The ability of different classes to be treated as instances of the same class through a common interface, typically by method overriding or overloading. This allows for flexibility and the ability to use a single interface to represent different underlying forms (data types).
+  The ability of different classes to be treated as instances of the same class through a common interface, typically by method overriding or overloading. This allows for flexibility and the ability to use a single interface to represent different underlying forms (data types). This can be done through method overriding or implementation in interfaces.
 
 - **Abstraction**  
   Hiding complex implementation details and showing only the necessary features of an object. Allows you to focus on what an object does instead of how it does it.
