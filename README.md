@@ -22,7 +22,7 @@ Object-oriented programming is about creating objects that contain both data and
 ## Principles of OOP
 
 - **Encapsulation**  
-  Bundling data (fields) and methods that operate on the data into a single unit (class), and restricting access to some of the object's components. This protects the integrity of the data by preventing outside code from directly modifying it.
+  Bundling data (fields) and methods that operate on the data into a single unit (class), and restricting access to some of the object's components. It is also known as information hiding. This protects the integrity of the data by preventing outside code from directly modifying it.
 
 - **Inheritance**  
   Mechanism that allows one class to acquire the properties and behaviors (fields and methods) of another class. This promotes code reusability and establishes a natural hierarchy between classes.

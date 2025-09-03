@@ -7,7 +7,7 @@ public class Apple extends Smartphones {
 
     //constructor
     public Apple(String model, String network, String display, String soc){
-        super(model, network, display, soc); //invoke super clas constructor
+        super(model, network, display, soc); //invoke super class constructor
         this.model = model;
         this.network = network;
         this.display = display;
