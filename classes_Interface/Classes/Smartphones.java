@@ -7,6 +7,7 @@ package classes_Interface.Classes;
 
 //Java classes does not support multiple inheritance (only inherit from one superclass). You can do this by using interfaces.
 //Override all methods upon implementation
+//Interface is more for behavior. For instance, a member of a class insect may have an interface for a behavior canFly
 
 
 public interface Smartphones {
