@@ -15,6 +15,7 @@ public class Dog extends Mammal{
     }
 
     public Dog giveBirth(String name){
+        System.out.println(this.name + " is giving birth.");
         count++;
         return new Dog(name);
     }

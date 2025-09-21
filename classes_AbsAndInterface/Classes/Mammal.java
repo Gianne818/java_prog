@@ -7,5 +7,5 @@ public abstract class Mammal extends Animal{
         super(name, age);
     }
 
-    abstract Mammal giveBirth(String name);
+    public abstract Mammal giveBirth(String name);
 }

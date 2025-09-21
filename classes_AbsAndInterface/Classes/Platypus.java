@@ -3,11 +3,11 @@ import classes_AbsAndInterface.Interface.EggLayers;
 
 public class Platypus extends Mammal implements EggLayers {
 
-    Platypus(String name, int age){
+    public Platypus(String name, int age){
         super(name, age);
     }
 
-    Platypus(String name){
+    public Platypus(String name){
         super(name, 1);
     }
 
@@ -16,6 +16,7 @@ public class Platypus extends Mammal implements EggLayers {
     }
 
     public Mammal giveBirth(String name){
+        System.out.println(name + " is a platypus and does not give birth. Laying eggs instead.");
         layEggs();
         return new Platypus(name);
     }
@@ -25,6 +26,7 @@ public class Platypus extends Mammal implements EggLayers {
     }
 
     public int layEggs(){
+        System.out.println(name + " lays eggs.");
         return 1;
     }
 }

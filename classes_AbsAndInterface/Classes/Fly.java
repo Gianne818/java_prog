@@ -2,7 +2,7 @@ package classes_AbsAndInterface.Classes;
 import classes_AbsAndInterface.Interface.CanFly;
 
 public class Fly extends Animal implements CanFly {
-    Fly(String name, int age){
+    public Fly(String name, int age){
         super(name, age);
     }
 
