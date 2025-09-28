@@ -1,13 +1,16 @@
 package classes_Wrapper;
-
+import java.util.ArrayList;
+import java.util.List;
 //Wrapper classes in Java provide a way to treat primitive data types as objects. 
 //They encapsulate the primitive values and provide useful methods to operate on them.
 //Useful when using collections frameworks like ArrayList<> which accepts only objects.
 //Use wrapper classes when working with collections, APIs, or situations that require objects instead of primitive values.
 public class Main {
+    List<Integer> arr = new ArrayList<>();
     public static void main (String[] args){
         int n = 1;
         Integer number = n;//autoboxing
+        Main myMain = new Main();
 
         System.out.println(number);
 
@@ -15,7 +18,7 @@ public class Main {
         System.out.println(b);
 
         String c = "21";
-        Integer c1 = Integer.parseInt(c);
+        Integer c1 = Integer.parseInt(c); //parsing
         System.out.println(c1);
 
 
@@ -36,5 +39,15 @@ public class Main {
         System.out.println(res2);
 
 
+        myMain.arr.add(1);
+        myMain.arr.add(2);
+
+        System.out.println(myMain.arr);
+
+
     }
+
+    
+
 }
+
