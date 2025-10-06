@@ -1,0 +1,81 @@
+My Output:
+action: Invoking getValue(), setValue(char value), and validate() methods for PasswordInputElement created with PasswordInputElement(3, new char[] {'a', 'b', 'c', '1', '2', '3'}).
+Output:
+Valid: true
+a
+a1
+a12
+a123
+Valid: true
+a12
+a1
+a1
+
+Expected Output:
+action: Invoking getValue(), setValue(char value), and validate() methods for PasswordInputElement created with PasswordInputElement(3, new char[] {'a', 'b', 'c', '1', '2', '3'}).
+Output:
+Valid: false
+a
+a1
+a12
+a12
+Valid: true
+a1
+a
+a4
+-------------------------------------------------------------------------------------------------------------------------
+My Output:
+action: Invoking getValue(), setValue(char value), and validate() methods for CustomPasswordInputElement created with CustomPasswordInputElement(4)
+Output:
+Valid: true
+J
+Jr
+Jrv
+JrvD
+Valid: true
+JrvD
+Valid: true
+Jrv
+Valid: true
+Jr
+Valid: true
+Jr
+Valid: true
+
+Expected Output:
+action: Invoking getValue(), setValue(char value), and validate() methods for CustomPasswordInputElement created with CustomPasswordInputElement(4).
+Output:
+Valid: false
+J
+Jr
+Jrv
+JrvD
+Valid: true
+JrvD
+Valid: true
+Jrv
+Valid: true
+Jr
+Valid: true
+Jrx
+Valid: false
+--------------------------------------------------------------------------------------------------------------
+My Output:
+action: Invoking validate(String, PasswordInputElement) method for PasswordField created with PasswordField().
+Output:Validating abc123
+Password validation result: true
+Validating abcxxx234
+Password validation result: true
+Validating abc1xx23/aa
+Password validation result: true
+
+Expected Output:
+action: Invoking validate(String, PasswordInputElement) method for PasswordField created with PasswordField().
+Output:Validating abc123
+Password validation result: true
+Validating abcxxx234
+Password validation result: false
+Validating abc1xx23/aa
+Password validation result: false
+
+
