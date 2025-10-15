@@ -1,0 +1,32 @@
+Graphical User Interface or GUl is a form of user interface that allows users to interact with electronic devices through graphical icons and audio indicator such as primary notation, instead of text-based Uls, typed command labels or text navigation. For this, you are tasked to define the following:
+Class - InputElement:
+Properties:
+private int maxLength
+private String value
+Constructor: Accepts int maxLength, initializes value to an empty string.
+Methods:
+validate(): Returns true if value length is between 1 and maxLength.
+getValue(), setValue(char c): The setter appends c to value or removes the last character if c is %. Use the validate() method to check if the to be added value is valid and will only add the character to the value if it is valid.
+
+
+Class - PasswordinputElement (inherits InputElement):
+Additional Property:
+private charil allowedCharacters
+Constructor: Accepts int maxLength and charl! allowedCharacters.
+Overridden validate(): Checks if all characters in value are in alL wedCharacters.
+
+
+Class - CustomPasswordinputElement (inherits InputElement):
+Constructor: Accepts int maxLength, automatically sets allowedCharacters to l'J', "r', "v, "D'l.
+
+
+Class - PasswordField:
+Method validate;
+Parameters:
+String password; The password to be validated,
+PasswordInputElement passwordInputELement: The element responsible for password validation.
+Behavior:
+The method sets the value of passwordInputElement character by character from the password string.
+It then calls the validate() method of passwordInputElement to validate the password.
+Print Output;
+Prints Password validation result; <isValid>", where <isValid> is the result of the password validation (either true or false)
