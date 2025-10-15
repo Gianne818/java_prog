@@ -21,6 +21,7 @@ public class Main {
                 bw.newLine();
                 if(i==6){
                     int a  = 6/0; //throws arithmetic exception, so it does not write anything, does not do the bw.close()
+                    System.out.println(a);
                 }
             }
             //bw.close(); //won't write unless you close it.
