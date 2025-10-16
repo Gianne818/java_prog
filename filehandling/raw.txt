@@ -1,0 +1,580 @@
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+
+public class Main{
+    public static void main (String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> arr = new ArrayList<>();
+        System.out.print("Enter the number of names: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        
+        try{
+            BufferedWriter bw = new BufferedWriter(new FileWriter("people.txt"));
+            for (int i = 1; i<=n; i++){
+                System.out.print("Enter name " + i + ": ");
+                String name = sc.nextLine();
+                if(!arr.contains(name)){
+                    arr.add(name);
+                }
+            }
+            
+            for (String s : arr){
+                bw.write(s);
+                bw.newLine();
+            }
+            
+            bw.close();
+        } catch(IOException e){
+            
+        }
+    }
+}
+
+------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+
+public class Main{
+    public static void main (String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Character> arr = new ArrayList<>();
+        while(true){
+            System.out.print("Enter a character: ");
+            char c = sc.next().charAt(0);
+            if(!(Character.isLetter(c)) && !(Character.isDigit(c))){
+                break;
+            }
+            arr.add(c);
+        }
+        
+        try{
+            new File("letters").mkdirs();
+            BufferedWriter bw = new BufferedWriter(new FileWriter("letters/inputted.txt"), 1024);
+            
+            
+            for (char c : arr){
+                if(Character.isLetter(c)){
+                    bw.write(c);
+                    bw.newLine();
+                }
+            }
+            bw.close();
+            
+            new File("numbers").mkdirs();
+            BufferedWriter bw2 = new BufferedWriter(new FileWriter("numbers/inputted.txt"), 1024);
+            for (char c : arr){
+                if(Character.isDigit(c)){
+                    bw2.write(c);
+                    bw2.newLine();
+                }
+            }
+            bw2.close();
+        } catch (IOException e){
+            
+        }
+    }
+}
+
+----------------------------------------------------------------------
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+    // Function to create a CSV file with content if it does not already exist
+    static void createCsvFileIfNotExists(String filename, String content) {
+        File file = new File(filename);
+        if (file.exists()) {
+            return; // Skip creation if the file already exists
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(content);
+        } catch (IOException e) {
+            System.out.println("Error creating file " + filename + ": " + e.getMessage());
+        }
+    }
+
+    // Function to create sample CSV files for testing if they do not exist
+    static void createSampleCsvFiles() {
+        createCsvFileIfNotExists("file1.csv", "Name,Age,Gender\nAlice,25,Female\nBob,30,Male\n");
+        createCsvFileIfNotExists("file2.csv", "ID,Name,Age,Gender\n1,Alice,25,Female\n2,Bob,30,Male\n3,Charlie,35,Male\n");
+        createCsvFileIfNotExists("file3.csv", "Name,Age,Gender,Height,Weight\nAlice,25,Female,1.68,60.0\nBob,30,Male,1.75,75.5\nCharlie,35,Male,1.80,80.0\nDavid,40,Male,1.83,85.5\nEmily,45,Female,1.70,65.5\n");
+    }
+    
+    public static void countRowCol(String fileName){
+        int row  = -1, col = 0;
+        try{
+             BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String s = "";
+            while((s=br.readLine())!=null){
+                String[] parts = s.split(",");
+                col = parts.length;
+                row++;
+                
+            }
+            System.out.println(fileName + " contains " + row + " rows and " + col + " columns of data.");
+        } catch(IOException e){
+            System.out.println("Error: File not found.");
+        }
+       
+    }
+    
+    public static void main(String[] args) {
+        // Create sample CSV files only if they do not already exist
+        createSampleCsvFiles();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the filename/path of the CSV file: ");
+        String fileName = sc.nextLine();
+        countRowCol(fileName);
+        
+    }
+}
+
+----------------------------------------------------------------------
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+
+    // Function to create a CSV file with content if it does not already exist
+    public static void createFileIfNotExists(String filename, String content) {
+        File file = new File(filename);
+        if (file.exists()) {
+            return; // Skip creation if the file already exists
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(content);
+        } catch (IOException e) {
+            System.err.println("Error creating file " + filename + ": " + e.getMessage());
+        }
+    }
+
+    // Function to create sample CSV files for testing
+    public static void createSampleFiles() {
+        createFileIfNotExists("sample1.csv", "ID,Name,Age\n1,John,30\n2,Jane,25\n3,Bob,40\n");
+        createFileIfNotExists("sample2.csv", "Code,Description,Price\nA001,Product A,9.99\nB002,Product B,14.99\nC003,Product C,19.99\n");
+        createFileIfNotExists("sample3.csv", "Country,Capital,Population\nUSA,Washington D.C.,328.2\nJapan,Tokyo,126.5\nFrance,Paris,66.99\n");
+    }
+    
+    public static void averageInteger(String fileName, String colComp){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String s = br.readLine();
+            String[] col = s.split(",");
+            int ind = -1;
+            int i = 0;
+            for (String str : col){
+                if(str.equals(colComp)){
+                    ind = i;
+                    break;
+                }
+                i++;
+            }
+            int sum = 0;
+            int numCol = 0;
+            while((s=br.readLine())!=null){
+                String[] parts = s.split(",");
+                double temp = Double.parseDouble(parts[i]);
+                sum+=(int)temp;
+                numCol++;
+            }
+            System.out.println("Average " + colComp + ": " + sum/numCol);
+        } catch(IOException e){
+            
+        }
+    }
+    
+    public static void averageFloat(String fileName, String colComp){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String s = br.readLine();
+            String[] col = s.split(",");
+            int ind = -1;
+            int i = 0;
+            for (String str : col){
+                if(str.equals(colComp)){
+                    ind = i;
+                    break;
+                }
+                i++;
+            }
+            double sum = 0;
+            int numCol = 0;
+            while((s=br.readLine())!=null){
+                String[] parts = s.split(",");
+                double temp = Double.parseDouble(parts[i]);
+                sum+=temp;
+                numCol++;
+            }
+            System.out.printf("Average %s: %.2f", colComp, sum/numCol);
+        } catch(IOException e){
+            
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create sample files if they do not already exist
+        createSampleFiles();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the CSV file name/path: ");
+        String fileName = sc.nextLine();
+        System.out.print("Enter the column to average (by header name): ");
+        String colComp = sc.nextLine();
+        System.out.print("Enter the output format (integer or float): ");
+        String type = sc.nextLine();
+        
+        if(type.equals("integer")){
+            averageInteger(fileName, colComp);
+        } 
+        else {
+            averageFloat(fileName, colComp);
+        }
+        
+    }
+}
+
+----------------------------------------------------------------------
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+    // Function to create sample CSV files for testing if they do not exist
+    static void createSampleCsvFiles() {
+        createCsvFileIfNotExists("file1.csv", "Name,Age,City\nJohn,25,New York\nJane,,San Francisco\nMike,35,\n");
+        createCsvFileIfNotExists("file2.csv", "Name,Age,City\nAlice,20,Los Angeles\nBob,,Los Angeles\nCharlie,40,\n");
+    }
+
+    // Function to create a CSV file with content if it does not already exist
+    static void createCsvFileIfNotExists(String filename, String content) {
+        File file = new File(filename);
+        if (file.exists()) {
+            return; // Skip creation if the file already exists
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(content);
+        } catch (IOException e) {
+            System.out.println("Error creating file " + filename + ": " + e.getMessage());
+        }
+    }
+    
+    public static void search(String fileName){
+        Scanner sc = new Scanner(System.in);
+        try{
+            BufferedReader br = new BufferedReader (new FileReader(fileName));
+            String s = "";
+            Boolean isFound = false;
+            System.out.print("Enter the value to search for: ");
+            String value = sc.nextLine();
+            while((s=br.readLine()) != null){
+                String[] parts = s.split(",");
+                for (String str : parts){
+                    if(str.equals(value)){
+                        System.out.println("Results found for value '" + value + "':");
+                        System.out.println(s);
+                        isFound = true;
+                        break;
+                    }
+                }
+                if(isFound == true){
+                    break;
+                }
+            }
+            
+            if(!isFound){
+                System.out.println("No results found for value '" + value + "'");
+            }
+        } catch (IOException e){
+            System.out.println("Error: File not found.");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create sample CSV files only if they do not already exist
+        createSampleCsvFiles();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        String fileName = sc.nextLine();
+        
+        
+        search(fileName);
+    }
+}
+
+----------------------------------------------------------------------
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // initialize 3 test files with sample data
+        List<List<String>> testData1 = new ArrayList<>();
+        testData1.add(Arrays.asList("Name", "Age", "Gender"));
+        testData1.add(Arrays.asList("John", "32", "Male"));
+        testData1.add(Arrays.asList("Jane", "25", "Female"));
+        testData1.add(Arrays.asList("Bob", "40", "Male"));
+
+        List<List<String>> testData2 = new ArrayList<>();
+        testData2.add(Arrays.asList("Name", "Age", "Gender"));
+        testData2.add(Arrays.asList("Alice", "28", "Female"));
+        testData2.add(Arrays.asList("Tom", "42", "Male"));
+        testData2.add(Arrays.asList("Samantha", "33", "Female"));
+
+        List<List<String>> testData3 = new ArrayList<>();
+        testData3.add(Arrays.asList("Name", "Age", "Gender"));
+        testData3.add(Arrays.asList("Michael", "45", "Male"));
+        testData3.add(Arrays.asList("Emily", "29", "Female"));
+        testData3.add(Arrays.asList("David", "37", "Male"));
+
+        // write test data to files
+        writeCsvFile("test_data_1.csv", testData1);
+        writeCsvFile("test_data_2.csv", testData2);
+        writeCsvFile("test_data_3.csv", testData3);
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter filename: ");
+        String fileName = sc.nextLine();
+        System.out.print("Enter column number: ");
+        int col = sc.nextInt();
+        extractCol(fileName, col);
+        
+    }
+    
+    public static void extractCol(String fileName, int col){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String s = "";
+            int curInd = 0;
+            while((s=br.readLine())!=null){
+                String[] parts = s.split(",");
+                parts[col-1] = parts[col-1].replace("\"" , "");
+                System.out.print(parts[col-1]);
+                if(curInd != parts.length){
+                    System.out.print(", ");
+                }
+                curInd++;
+            }
+        } catch (IOException e){
+            
+        }
+    }
+
+    static void writeCsvFile(String filename, List<List<String>> data) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            for (List<String> row : data) {
+                for (int i = 0; i < row.size(); i++) {
+                    writer.write("\"");
+                    for (char c : row.get(i).toCharArray()) {
+                        if (c == '\"') {
+                            writer.write("\"\"");
+                        } else {
+                            writer.write(c);
+                        }
+                    }
+                    writer.write("\"");
+                    if (i < row.size() - 1) {
+                        writer.write(",");
+                    }
+                }
+                writer.println();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+}import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // initialize 3 test files with sample data
+        List<List<String>> testData1 = new ArrayList<>();
+        testData1.add(Arrays.asList("Name", "Age", "Gender"));
+        testData1.add(Arrays.asList("John", "32", "Male"));
+        testData1.add(Arrays.asList("Jane", "25", "Female"));
+        testData1.add(Arrays.asList("Bob", "40", "Male"));
+
+        List<List<String>> testData2 = new ArrayList<>();
+        testData2.add(Arrays.asList("Name", "Age", "Gender"));
+        testData2.add(Arrays.asList("Alice", "28", "Female"));
+        testData2.add(Arrays.asList("Tom", "42", "Male"));
+        testData2.add(Arrays.asList("Samantha", "33", "Female"));
+
+        List<List<String>> testData3 = new ArrayList<>();
+        testData3.add(Arrays.asList("Name", "Age", "Gender"));
+        testData3.add(Arrays.asList("Michael", "45", "Male"));
+        testData3.add(Arrays.asList("Emily", "29", "Female"));
+        testData3.add(Arrays.asList("David", "37", "Male"));
+
+        // write test data to files
+        writeCsvFile("test_data_1.csv", testData1);
+        writeCsvFile("test_data_2.csv", testData2);
+        writeCsvFile("test_data_3.csv", testData3);
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter filename: ");
+        String fileName = sc.nextLine();
+        System.out.print("Enter column number: ");
+        int col = sc.nextInt();
+        extractCol(fileName, col);
+        
+    }
+    
+    public static void extractCol(String fileName, int col){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String s = "";
+            int curInd = 0;
+            while((s=br.readLine())!=null){
+                String[] parts = s.split(",");
+                parts[col-1] = parts[col-1].replace("\"" , "");
+                System.out.print(parts[col-1]);
+                if(curInd != parts.length){
+                    System.out.print(", ");
+                }
+                curInd++;
+            }
+        } catch (IOException e){
+            
+        }
+    }
+
+    static void writeCsvFile(String filename, List<List<String>> data) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            for (List<String> row : data) {
+                for (int i = 0; i < row.size(); i++) {
+                    writer.write("\"");
+                    for (char c : row.get(i).toCharArray()) {
+                        if (c == '\"') {
+                            writer.write("\"\"");
+                        } else {
+                            writer.write(c);
+                        }
+                    }
+                    writer.write("\"");
+                    if (i < row.size() - 1) {
+                        writer.write(",");
+                    }
+                }
+                writer.println();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+}
+
+---------------------------------------
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+
+    public static void main(String[] args) {
+        String[][] file1 = { { "Name", "Age", "City" }, { "John", "25", "New York" }, { "Jane", "30", "San Francisco" },
+                { "Mike", "35", "Chicago" } };
+
+        String[][] file2 = { { "Name", "Age", "City" }, { "Alice", "20", "Los Angeles" }, { "Bob", "30", "Los Angeles" },
+                { "Charlie", "40", "New York" } };
+
+        String[][] file3 = { { "Name", "Age", "City" }, { "David", "25", "Chicago" }, { "Eva", "30", "Los Angeles" },
+                { "Frank", "35", "New York" } };
+
+        // Write sample files
+            writeCsvFile("file1.csv", file1);
+            writeCsvFile("file2.csv", file2);
+            writeCsvFile("file3.csv", file3);
+        
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        String fileName = sc.nextLine();
+        System.out.print("Enter the column name to filter on: ");
+        String col = sc.nextLine();
+        System.out.print("Enter the condition to apply: ");
+        String condition = sc.nextLine();
+        
+        filter(fileName, col, condition);
+    }
+    
+    
+    
+    public static void filter(String fileName, String col, String condition){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            System.out.println("Rows that satisfy the condition:");
+            String s = br.readLine();
+            String[] parts = s.split(",");
+            int ind = 0;
+            for (String str : parts){
+                if(col.equals(str)){
+                    break;
+                }
+                ind++;
+            }
+            
+            while((s=br.readLine())!=null){
+                String[] tempParts = s.split(",");
+                if(tempParts[ind].equals(condition)){
+                    System.out.println(s);
+                }
+            }
+            
+        } catch(IOException e){
+            
+        }
+    }
+    static void writeCsvFile(String filename, String[][] data) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            for (String[] row : data) {
+                for (int i = 0; i < row.length; i++) {
+
+                    for (char c : row[i].toCharArray()) {
+
+                            writer.write(c);
+                        
+                    }
+
+                    if (i < row.length- 1) {
+                        writer.write(",");
+                    }
+                }
+                writer.println();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
