@@ -1,0 +1,82 @@
+ public interface Payable {
+    double computeBonus();
+ }
+ 
+ public abstract class Employee implements Payable{
+     private String name;
+     private int age;
+     private double salary;
+
+     public Employee(String name, int age, double salary){
+        this.name = name;
+        this.age = age;
+        setSalary(salary);
+     }
+
+     public void setSalary(double sal){
+        if(sal>=500){
+            salary = sal;
+        } 
+     }
+
+     public String getName(){
+        return name;
+     }
+
+     public int getAge(){
+        return age;
+     }
+
+     public double getSalary(){
+        return salary;
+     }
+
+     public String toString(){
+        return "Name: " + name + ", Age: " + age + ", Salary: " + salary;
+     }
+
+     protected abstract void work();
+ }
+
+ public class Developer extends Employee implements Comparable<Developer>{
+    public Developer(String name, int age, double salary){
+        super(name, age, salary);
+    }
+
+    public void work(){
+        sout("I am " + getName() + " and I am coding.");
+    }
+
+    public double computeBonus(){
+        return getSalary()*0.10;
+    }
+
+    public int compareTo(Developer d){
+        return Double.compare(this.getSalary(), d.getSalary());
+    }
+ }
+
+ public class Manager extends Employee{
+    private int teamSize;
+    
+    public Manager(String name, int age, double salary, int teamSize){
+        super(name, age, salary);
+        this.teamSize = teamSize;
+    }
+
+    public void work(){
+        sout("I am " + getName() + ", managing a team of " + teamSize + " developers.");
+    }
+
+    public void evaluate(Developer d){
+        sout ("Manager " + getName() + " evaluates " + d.getName());
+        if(d.getSalary() < 700){
+            d.setSalary(d.getSalary()+50);
+        }
+    }
+
+    public double computeBonus(){
+        return getSalary()*0.15;
+    }
+ }
+ }
