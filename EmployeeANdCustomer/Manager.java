@@ -22,5 +22,6 @@ public class Manager extends Employee{
         System.out.println("Hi! I am " + getName() + ". Can you program this for me, " + dName + "?");
         double dSal = d.getSalary();
         d.setSalary(dSal + 25.60);
+        d.work();
     }
 }
