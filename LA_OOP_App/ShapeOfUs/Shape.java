@@ -23,17 +23,24 @@ public abstract class Shape implements Comparable<Shape>{
     public abstract double area();
     public abstract double perimeter();
     
-    public static class AreaComparator implements Comparator<Shape>{
-        public int compare(Shape o1, Shape o2){
-            return -Double.compare(o1.area(), o2.area());
-        }
-    }
+    // public static class AreaComparator implements Comparator<Shape>{
+    //     public int compare(Shape o1, Shape o2){
+    //         return -Double.compare(o1.area(), o2.area());
+    //     }
+    // }
     
     public static class PerimComparator implements Comparator<Shape>{
         public int compare(Shape o1, Shape o2){
             return -Double.compare(o1.perimeter(), o2.perimeter());
         }
     }
+    
+    public static class AreaComparator implements Comparator<Shape>{
+        public int compare(Shape o1, Shape o2){
+            return -Double.compare(o1.area(), o2.area());
+        }
+    }
+
     
 
 }

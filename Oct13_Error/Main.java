@@ -1,4 +1,4 @@
-package Oct13;
+package Oct13_Error;
 import java.util.ArrayList;
 import java.util.Scanner;
 import  java.util.List;
@@ -15,23 +15,27 @@ public class Main {
     public static void main(String[] args) {
         List<Scanner>  scanners = new ArrayList<>();
         try{
+            foo();
             while (true) {
-//                Scanner sc = new Scanner(System.in); //never stops because of garbage collections in java
-//                System.out.println(sc.hashCode());
-//                scanners.add(sc);
-                //throw new OutOfMemoryError();
+               Scanner sc = new Scanner(System.in); //never stops because of garbage collections in java
+               System.out.println(sc.hashCode());
+               scanners.add(sc);
+               throw new OutOfMemoryError();
             }
 
-            //foo();
+            
         } catch (OutOfMemoryError e) {
             System.out.println("Caught the error.");
         }
-        //Scanner sc = new Scanner(System.in);
-        //scanners.add(new Scanner(System.in));
+        Scanner sc = new Scanner(System.in);
+        scanners.add(new Scanner(System.in));
     }
 
     private static void foo(){
         System.out.println("Gianne Cruz");
+        // try{
+
+        // } catch()
         foo();
     }
 }
