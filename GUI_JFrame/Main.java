@@ -26,6 +26,8 @@ public class Main {
         )
         );
 
+
+
         for (JButton button : buttons){
             frame.add(button);
             button.addActionListener(new ActionListener() {
@@ -37,7 +39,6 @@ public class Main {
         }
         frame.setVisible(true);
     }
-
 
 }
 
