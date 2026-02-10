@@ -23,11 +23,21 @@ public abstract class Animal implements Comparable<Animal> {
     }
 
     //Comparable
+    // public int compareTo(Animal o){
+    //     return this.name.toLowerCase().compareTo(o.name.toLowerCase());
+    // }
+
+    //Comparator
+    // public static class CompareName implements Comparator<Animal>{
+    //     public int compare(Animal o1, Animal o2){
+    //         return o1.compareTo(o2) != 0 ? o1.compareTo(o2) : Integer.compare(o1.age, o2.age);
+    //     }
+    // }
+
     public int compareTo(Animal o){
         return this.name.toLowerCase().compareTo(o.name.toLowerCase());
     }
 
-    //Comparator
     public static class CompareName implements Comparator<Animal>{
         public int compare(Animal o1, Animal o2){
             return o1.compareTo(o2) != 0 ? o1.compareTo(o2) : Integer.compare(o1.age, o2.age);
