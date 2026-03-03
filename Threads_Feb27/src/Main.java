@@ -50,7 +50,7 @@ public class Main {
         System.out.println("MAIN COUNT on main: " + CompositeRunnable.staticCount);
         System.out.println("MAIN TIME: " + (end-start));
 
-         //indeterminancy, threads will fight for resources,  who gets the output console first
+        //indeterminancy, threads will fight for resources,  who gets the output console first
 //        List<Thread> threads = new ArrayList<>();
 //        for(int i = 0; i<1000; i++){
 //            threads.add(new NamedThread("Thread " + (i+1)));

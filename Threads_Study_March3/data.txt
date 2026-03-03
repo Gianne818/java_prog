@@ -1,0 +1,1604 @@
+Gemini
+Threaded Word Count by Line Range
+New chat
+My stuff
+Gems
+Chats
+Threaded Word Count by Line Range
+Java Threads: Composite, Grayscale, Word Count
+Building eLeksyon's RAG Pipeline
+Analyzing Nested Loop Running Time
+Quicksort Worst Case Analysis
+Sample Recursive Functions for Analysis
+Geometric Series Simplification Explained
+Reconstructing Eaten Cake
+Recolor PNG Icons in Figma
+ReCord App: Motto and Catchphrase Ideas
+Debugging Longest Palindrome Function
+Philippine Election Cycles and Dates
+C++ Substring: Start Index and Length
+Threading Composite Number Calculation
+Multithreading in Java Swing Application
+PH Games Activity 7 Quiz Answers
+Recurrence Relation Simplification Explained
+Sorting Algorithms: Basic and Complex
+Android Core Components Explained
+Setting Android Background Color
+Remote Menu Button Location
+Proving Big O Notation for 2n-100
+Convert Fraction to Equivalent Fraction
+make me a professional image. like suit and stuf
+Optimizing Longest Substring Algorithm
+Sync Local Folder to GitHub Repo
+UML Method Parameter Array Notation
+Use Case Diagram Connections Explained
+Completing E-commerce Use Case Diagram
+Database Quiz Answers and Explanations
+Science, Technology, and Society Summary
+Science, Technology, Society Quiz Creation
+Personalized Song and Art Creation
+Scientific Method: Steps and Description
+
+Settings & help
+Conversation with Gemini
+You said
+import java.io.BufferedReader;
+
+import java.io.FileReader;
+
+
+
+class WordCountThread extends Thread {
+
+private String filePath;
+
+int start;
+
+int end;
+
+
+
+public WordCountThread(String filePath, int start, int end) {
+
+this.filePath = filePath;
+
+this.start = start;
+
+this.end = end;
+
+}
+
+
+
+@Override
+
+public void run() {
+
+int count = 0;
+
+try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+String line;
+
+int curr = 0;
+
+while ((line = br.readLine()) != null) {
+
+String[] words = line.trim().split(" ");
+
+if (!line.isEmpty()) count += words.length;
+
+}
+
+System.out.println("Total Word Count: " + count);
+
+} catch (Exception e) {
+
+System.out.println("File Error: " + e.getMessage());
+
+}
+
+}
+
+}
+
+import java.io.BufferedReader;
+
+import java.io.File;
+
+import java.io.FileReader;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+
+
+public class Main {
+
+public static void main(String[] args) {
+
+// Initialize threads
+
+CompositeThread t1 = new CompositeThread(50);
+
+GrayscaleRunnable r = new GrayscaleRunnable("input.jpg", "output.jpg");
+
+WordCountThread t3 = new WordCountThread("data.txt");
+
+Thread t2 = new Thread(r);
+
+
+
+// Start threads
+
+t1.start();
+
+t2.start();
+
+t3.start();
+
+
+
+List<Thread> Composites = new ArrayList<>();
+
+List<Thread> Grayscales = new ArrayList<>();
+
+List<Thread> Wordcounts = new ArrayList<>();
+
+
+
+int numThreads = 10;
+
+//count number of lines
+
+int numLines = 0;
+
+try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))){
+
+while(br.readLine()!=null){
+
+numLines++;
+
+}
+
+} catch(IOException e){
+
+System.out.println(e.getMessage());
+
+}
+
+
+
+for(int i = 1; i<=numThreads; i++){
+
+Wordcounts.add(new WordCountThread("data.txt"))
+
+}
+
+
+
+}
+
+}
+
+
+
+okay so im trying to divide the number of lines to read by 5 for each thread in WordCounts. to do that, i am making wordcount constructr to accept start and end. how do i handle the run such that it starts at the line provided and ends at the end
+
+Gemini said
+To handle specific line ranges in your run() method, you need to track the current line index and use a loop that skips lines until it reaches start, then processes them until it reaches end.
+
+Updated WordCountThread Implementation
+Java
+@Override
+public void run() {
+    int count = 0;
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        int currentLine = 0;
+
+        while ((line = br.readLine()) != null) {
+            // Only process if the current line is within the assigned range
+            if (currentLine >= start && currentLine < end) {
+                if (!line.trim().isEmpty()) {
+                    String[] words = line.trim().split("\\s+");
+                    count += words.length;
+                }
+            }
+
+            currentLine++;
+
+            // Optimization: Stop reading early if we've passed our range
+            if (currentLine >= end) break;
+        }
+        System.out.println("Thread [" + start + "-" + end + "] Word Count: " + count);
+    } catch (Exception e) {
+        System.out.println("File Error: " + e.getMessage());
+    }
+}
+Key Logic Changes
+currentLine Tracker: A counter is necessary because BufferedReader doesn't inherently know its line number.
+
+Range Condition: The check currentLine >= start && currentLine < end ensures the thread only counts its assigned slice.
+
+Early Break: if (currentLine >= end) break; prevents the thread from reading the rest of the file unnecessarily once its work is done.
+
+Regex Split: Using .split("\\s+") instead of " " is safer, as it handles multiple spaces or tabs between words.
+
+Implementation in Main
+When you initialize your threads in the loop, you will need to calculate the offsets. If you have 100 lines and 5 threads, your logic would look like this:
+
+Java
+int linesPerThread = numLines / numThreads;
+
+for (int i = 0; i < numThreads; i++) {
+    int start = i * linesPerThread;
+    // Ensure the last thread takes the remainder of the file
+    int end = (i == numThreads - 1) ? numLines : (i + 1) * linesPerThread;
+
+    WordCountThread t = new WordCountThread("data.txt", start, end);
+    Wordcounts.add(t);
+    t.start();
+}
+Note: For very large files, BufferedReader.readLine() is still O(n) because it must read the previous lines to find the newline characters. If the file is massive (GBs), "RandomAccessFile" is usually preferred to seek to byte positions instead of line numbers.
+
+Would you like me to show you how to aggregate these individual counts into a single total in your Main class?
+
+You said
+import java.io.BufferedReader;
+
+import java.io.File;
+
+import java.io.FileReader;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+
+
+public class Main {
+
+public static void main(String[] args) {
+
+// Initialize threads
+
+// CompositeThread t1 = new CompositeThread(50);
+
+// GrayscaleRunnable r = new GrayscaleRunnable("input.jpg", "output.jpg");
+
+// WordCountThread t3 = new WordCountThread("data.txt");
+
+// Thread t2 = new Thread(r);
+
+//
+
+// // Start threads
+
+// t1.start();
+
+// t2.start();
+
+// t3.start();
+
+
+
+List<Thread> Composites = new ArrayList<>();
+
+List<Thread> Grayscales = new ArrayList<>();
+
+List<Thread> Wordcounts = new ArrayList<>();
+
+
+
+int numThreads = 10;
+
+
+
+//count number of lines
+
+int numLines = 0;
+
+try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))){
+
+while(br.readLine()!=null){
+
+numLines++;
+
+}
+
+} catch(IOException e){
+
+System.out.println(e.getMessage());
+
+}
+
+
+
+int numLinesPerThread = numLines/numThreads;
+
+for(int i = 0; i<numThreads; i++){
+
+int start = i*numLinesPerThread;
+
+int end = (i+1)*numLinesPerThread;
+
+Wordcounts.add(new WordCountThread("data.txt", start, end));
+
+}
+
+
+
+for(Thread w : Wordcounts){
+
+w.start();
+
+}
+
+
+
+for(Thread w: Wordcounts){
+
+try{
+
+w.join();
+
+} catch(InterruptedException e){
+
+System.out.println(e.getMessage());
+
+}
+
+}
+
+
+
+}
+
+}
+
+
+
+import java.io.BufferedReader;
+
+import java.io.FileReader;
+
+
+
+class WordCountThread extends Thread {
+
+private String filePath;
+
+int start;
+
+int end;
+
+static int totalWordCount = 0;
+
+
+
+public WordCountThread(String filePath, int start, int end) {
+
+this.filePath = filePath;
+
+this.start = start;
+
+this.end = end;
+
+}
+
+
+
+@Override
+
+public void run() {
+
+int count = 0;
+
+try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+String line;
+
+int curr = 0;
+
+while ((line = br.readLine()) != null) {
+
+if(curr>=start && curr < end ){
+
+String[] words = line.trim().split(" ");
+
+if (!line.isEmpty()) count += words.length;
+
+}
+
+curr++;
+
+if(curr==end) break;
+
+}
+
+totalWordCount+=count;
+
+} catch (Exception e) {
+
+System.out.println("File Error: " + e.getMessage());
+
+}
+
+
+
+System.out.println("Total word count: " + totalWordCount);
+
+}
+
+}
+
+for some reason totalword count is always 0
+
+Gemini said
+The issue is a classic Race Condition combined with an Offset Logic error.
+
+Why it's returning 0 (or incorrect values)
+Race Condition on static totalWordCount: Your threads are all trying to update the same variable at the exact same time. When two threads read totalWordCount, add their local count, and write it back, they overwrite each other's work.
+
+Skipping Lines: BufferedReader doesn't allow you to "jump" to a line. Even if a thread only cares about lines 100–200, it must read through 0–99 first. While your logic handles the range, the br.readLine() must happen for every line until curr reaches start.
+
+The "0" Result: If your threads crash due to file errors or if numLinesPerThread results in 0 (e.g., 5 lines divided by 10 threads), the count stays at zero.
+
+The Fix: Synchronized Updates and Logical Refinement
+To fix this, use a synchronized block or an AtomicInteger. Also, ensure the br.readLine() occurs outside the if block so the counter actually increments.
+
+Updated WordCountThread.java
+Java
+class WordCountThread extends Thread {
+    private String filePath;
+    private int start, end;
+    // Use an Object for a lock to prevent race conditions
+    private static final Object lock = new Object();
+    static int totalWordCount = 0;
+
+    public WordCountThread(String filePath, int start, int end) {
+        this.filePath = filePath;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public void run() {
+        int localCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int curr = 0;
+            while ((line = br.readLine()) != null) {
+                // We MUST read every line to reach the 'start' point
+                if (curr >= start && curr < end) {
+                    String trimmed = line.trim();
+                    if (!trimmed.isEmpty()) {
+                        // split by whitespace (handles multiple spaces)
+                        localCount += trimmed.split("\\s+").length;
+                    }
+                }
+                curr++;
+                if (curr >= end) break;
+            }
+
+            // Critical Section: Only one thread can update the static variable at a time
+            synchronized (lock) {
+                totalWordCount += localCount;
+            }
+        } catch (Exception e) {
+            System.err.println("Thread Error: " + e.getMessage());
+        }
+    }
+}
+Improvements in Main.java
+Ensure you print the total after all threads have finished using join(). If you print inside run(), you see partial, messy results.
+
+Java
+// ... inside main after the join() loop ...
+for (Thread w : Wordcounts) {
+    try {
+        w.join();
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+
+// Print the final result once here
+System.out.println("Final Total Word Count: " + WordCountThread.totalWordCount);
+Pro-Tip: Integer Division
+If numLines is 13 and numThreads is 5, numLines / numThreads is 2.
+
+Thread 0: 0–2
+
+Thread 1: 2–4
+
+Thread 2: 4–6
+
+Thread 3: 6–8
+
+Thread 4: 8–10
+
+Result: You miss lines 11, 12, and 13.
+
+To fix this, let the last thread handle everything up to numLines:
+int end = (i == numThreads - 1) ? numLines : (i + 1) * numLinesPerThread;
+
+Would you like me to show you how to use AtomicInteger to avoid using the synchronized keyword?
+
+You said
+i need not to use those kinds of things. not atomic integer or synchronize. In the code below, the staticCount variable is correctly updating
+
+more like something like this
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+import java.util.Scanner;
+
+
+
+public class Main {
+
+public static void main(String[] args) {
+
+
+
+int max = 500_000;
+
+int prev = 2;
+
+int thr = 100;
+
+int div = max/thr;
+
+List<Thread> composites = new ArrayList<>();
+
+for(int i = 1; i<=thr; i++){
+
+// composites.add(new Thread(new CompositeRunnable(50_000*i+1, 50_000*(i+1))));
+
+composites.add(new Thread(new CompositeRunnable(prev, i == thr ? max : div*i)));
+
+prev = div * i + 1;
+
+}
+
+
+
+System.out.println(composites.getFirst().isAlive());
+
+System.out.println(composites.getFirst().getState());
+
+
+
+
+
+
+
+System.out.println(composites.getFirst().getState());
+
+
+
+// try{
+
+// Thread.sleep(1000);
+
+// } catch(InterruptedException e){
+
+//
+
+// }
+
+System.out.println("Waking up!");
+
+
+
+// while(composites.getLast().isAlive());
+
+
+
+long start = System.currentTimeMillis();
+
+for (Thread c : composites){
+
+c.start();
+
+}
+
+int i = 0;
+
+for(Thread c : composites){
+
+// while(c.isAlive());
+
+try{
+
+c.join();
+
+System.out.println(i++ + " dies");
+
+} catch (InterruptedException e) {
+
+throw new RuntimeException(e);
+
+}
+
+}
+
+long end = System.currentTimeMillis();
+
+System.out.println("MAIN COUNT on main: " + CompositeRunnable.staticCount);
+
+System.out.println("MAIN TIME: " + (end-start));
+
+
+
+//indeterminancy, threads will fight for resources, who gets the output console first
+
+// List<Thread> threads = new ArrayList<>();
+
+// for(int i = 0; i<1000; i++){
+
+// threads.add(new NamedThread("Thread " + (i+1)));
+
+// }
+
+//
+
+// for(Thread t : threads){
+
+// t.start();
+
+// }
+
+//
+
+// for(Thread t : threads){
+
+// t.run();
+
+// }
+
+
+
+// List<Thread> runnables = new ArrayList<>();
+
+// for(int i = 0; i<1000; i++){
+
+// runnables.add(new Thread(new NamedRunnable("Runnable " + (i+1))));
+
+// }
+
+//
+
+// for(Thread r : runnables){
+
+// r.start();
+
+// }
+
+//
+
+// NamedThread gianneThread = new NamedThread("Gianne");
+
+// gianneThread.start(); //start starts a new thread. calling run will just put call the run function within the same thread
+
+//
+
+// System.out.println("Mana si main");
+
+// System.out.println("Enter age: ");
+
+// Scanner sc = new Scanner(System.in);
+
+// int age = sc.nextInt();
+
+// System.out.println("The age: " + age);
+
+}
+
+}
+
+
+
+import java.util.function.DoubleToIntFunction;
+
+
+
+public class CompositeRunnable implements Runnable {
+
+int start, end;
+
+
+
+static int staticCount = 0;
+
+
+
+public CompositeRunnable(int start, int end) {
+
+this.start = start;
+
+this.end = end;
+
+}
+
+
+
+public void run(){
+
+try{
+
+Thread.sleep(1000);
+
+} catch(InterruptedException e){
+
+
+
+}
+
+int countLocal = 0;
+
+System.out.println("STARTING " + end);
+
+int count = 0;
+
+for (int i = start; i <= end; i++) {
+
+for (int j = 2; j < i; j++) {
+
+if (i % j == 0) {
+
+countLocal++;
+
+count++;
+
+break;
+
+}
+
+}
+
+}
+
+staticCount += countLocal;
+
+// System.out.println(end + " COUNT = " + count);
+
+// System.out.println("MAIN COUNT = " + staticCount);
+
+}
+
+
+
+int getEnd(){
+
+return end;
+
+}
+
+}
+
+Gemini said
+The reason your staticCount in the CompositeRunnable example appears to work is likely due to the time-intensive nature of the task (finding composite numbers up to 500,000). Because each thread spends a long time in the nested loops, the chance of two threads finishing at the exact same millisecond and hitting staticCount += countLocal simultaneously is lower than in the Word Count example, where threads finish almost instantly.
+
+However, in your Word Count code, the task is much faster. Without synchronized or AtomicInteger, you will face Lost Updates because += is not an atomic operation.
+
+To fix your Word Count logic while following the structure of your provided CompositeRunnable example, you need to fix three things:
+
+Read Increment: Move curr++ outside the if block so it counts every line in the file.
+
+Range Logic: Ensure the br.readLine() actually happens for the entire file until your thread's range is met.
+
+The Counter: Use a local variable to sum words within the thread, then add it to the static variable at the very end.
+
+Updated WordCountThread
+Java
+class WordCountThread extends Thread {
+    private String filePath;
+    int start;
+    int end;
+    static int totalWordCount = 0;
+
+    public WordCountThread(String filePath, int start, int end) {
+        this.filePath = filePath;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public void run() {
+        int localCount = 0; // Calculate everything locally first
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int curr = 0;
+
+            while ((line = br.readLine()) != null) {
+                // Check if current line is in this thread's slice
+                if (curr >= start && curr < end) {
+                    String trimmed = line.trim();
+                    if (!trimmed.isEmpty()) {
+                        // split by whitespace
+                        localCount += trimmed.split("\\s+").length;
+                    }
+                }
+
+                curr++; // Increment for every line read
+                if (curr >= end) break; // Optimization: stop if past our range
+            }
+        } catch (Exception e) {
+            System.out.println("File Error: " + e.getMessage());
+        }
+
+        // Like your CompositeRunnable, update the static variable at the end
+        totalWordCount += localCount;
+    }
+}
+Improvements for your Main class
+To ensure you aren't missing the last few lines due to integer division (e.g., 103 lines / 10 threads = 10 lines each, missing the last 3), adjust your loop logic:
+
+Java
+int numLinesPerThread = numLines / numThreads;
+
+for (int i = 0; i < numThreads; i++) {
+    int start = i * numLinesPerThread;
+    // If it's the last thread, make sure it goes all the way to numLines
+    int end = (i == numThreads - 1) ? numLines : (i + 1) * numLinesPerThread;
+
+    Wordcounts.add(new WordCountThread("data.txt", start, end));
+}
+
+// ... start and join loops ...
+
+System.out.println("Final Result: " + WordCountThread.totalWordCount);
+Why it might still fail without synchronized
+Even if it "looks" okay in your CompositeRunnable, the line staticCount += countLocal is actually three steps:
+
+Read staticCount
+
+Add countLocal
+
+Write result back to staticCount
+
+If Thread A and Thread B both do Step 1 at the same time, they will both write back a value that ignores the other's contribution. If you strictly cannot use synchronized, the only "safe" way to handle this in standard Java is to have the Main class collect the results from each thread instance after they join().
+
+Would you like me to show you how to store the count inside each thread object so Main can sum them up safely without using static variables?
+
+You said
+is this not correct already?
+
+import java.io.BufferedReader;
+
+import java.io.FileReader;
+
+
+
+class WordCountThread extends Thread {
+
+private String filePath;
+
+int start;
+
+int end;
+
+static int totalWordCount = 0;
+
+
+
+public WordCountThread(String filePath, int start, int end) {
+
+this.filePath = filePath;
+
+this.start = start;
+
+this.end = end;
+
+}
+
+
+
+@Override
+
+public void run() {
+
+int localCount = 0;
+
+try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+String line;
+
+int curr = 0;
+
+while ((line = br.readLine()) != null) {
+
+if(curr>=start && curr < end ){
+
+String[] words = line.trim().split("\\s+");
+
+if (!line.isEmpty()) localCount += words.length;
+
+}
+
+curr++;
+
+if(curr==end) break;
+
+}
+
+
+
+} catch (Exception e) {
+
+System.out.println("File Error: " + e.getMessage());
+
+}
+
+totalWordCount+=localCount;
+
+System.out.println("Total word count: " + totalWordCount);
+
+}
+
+}
+
+Gemini said
+The logic in your run() method is mostly correct for calculating the local count, but you have two specific issues that will keep causing you headaches: the Race Condition on the static variable and the Output Timing.
+
+1. The Race Condition (Why the count might be wrong)
+Even though you are using a localCount variable, the final step totalWordCount += localCount; is not atomic.
+
+Behind the scenes, the computer performs three steps:
+
+Read the current value of totalWordCount.
+
+Add localCount to it.
+
+Store the new value back into totalWordCount.
+
+If Thread A and Thread B both "Read" the value at the same time (e.g., both see 100), they will both calculate their own new totals (e.g., 110 and 115) and overwrite each other. One thread's work will be lost. This is likely why you are seeing inconsistent or "0" results.
+
+2. The Print Statement (Why you see "0")
+In your code, you print totalWordCount inside the run() method. Because threads run concurrently:
+
+Thread 1 might finish and print before any other thread has even started.
+
+If Thread 1 processed lines 0-5 and found 0 words, it will print "0".
+
+If you want to see the actual final total, you must print it in your Main class after all threads have finished their join() calls.
+
+3. Loop Logic Detail
+Your check if (!line.isEmpty()) should check the trimmed version of the line. If a line only contains spaces, .split("\\s+") might still return an array with an empty string, adding 1 to your count incorrectly.
+
+The "Clean" Version
+If you want to avoid synchronized but still get a correct answer, the safest way is to avoid the static variable entirely and let Main do the math:
+
+WordCountThread.java
+
+Java
+class WordCountThread extends Thread {
+    private String filePath;
+    int start, end;
+    int localCount = 0; // NOT static
+
+    public WordCountThread(String filePath, int start, int end) {
+        this.filePath = filePath;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public void run() {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int curr = 0;
+            while ((line = br.readLine()) != null) {
+                if (curr >= start && curr < end) {
+                    String trimmed = line.trim();
+                    if (!trimmed.isEmpty()) {
+                        localCount += trimmed.split("\\s+").length;
+                    }
+                }
+                curr++;
+                if (curr == end) break;
+            }
+        } catch (Exception e) {
+            System.err.println("File Error: " + e.getMessage());
+        }
+    }
+}
+Main.java (The Calculation)
+
+Java
+// ... after all joins are finished ...
+int finalTotal = 0;
+for (WordCountThread w : Wordcounts) {
+    finalTotal += w.localCount; // Main thread sums them up safely
+}
+System.out.println("Final Total: " + finalTotal);
+By having Main sum the localCount after the threads "die" (join), you eliminate the race condition completely without needing synchronized or AtomicInteger.
+
+Would you like me to show you how to handle the remainder of the lines if your file doesn't divide perfectly by 10?
+
+You said
+
+
+int totCount = 0;
+
+for(WordCountThread w: Wordcounts){
+
+totCount+=w.localCount;
+
+}
+
+
+
+its an error on WordCountThread. must be a thread
+
+Gemini said
+The error occurs because your Wordcounts list is defined as List<Thread>. While your objects are WordCountThread instances, the compiler only sees them as generic Thread objects, which don't have a localCount variable.
+
+To fix this, you have two options: Cast the objects during the loop or Change the List type.
+
+Option 1: Change the List Type (Recommended)
+Change the list declaration in Main so the compiler knows exactly what's inside. This is the cleanest way.
+
+Java
+// Change this line in Main
+List<WordCountThread> Wordcounts = new ArrayList<>();
+
+// Now this loop will work perfectly
+int totCount = 0;
+for (WordCountThread w : Wordcounts) {
+    totCount += w.localCount;
+}
+Option 2: Cast the Object
+If you must keep the list as List<Thread>, you have to tell Java that the Thread is actually a WordCountThread before accessing localCount.
+
+Java
+int totCount = 0;
+for (Thread t : Wordcounts) {
+    // Cast 't' to 'WordCountThread'
+    WordCountThread w = (WordCountThread) t;
+    totCount += w.localCount;
+}
+Why this is better than a static variable
+By using this approach, you are following a "MapReduce" pattern:
+
+Map: Each thread works independently on its own "map" (its localCount).
+
+Join: You wait for all threads to finish (w.join()).
+
+Reduce: The Main thread sums (reduces) all the local counts into one total.
+
+MapReduce architecture, AI generated
+Getty Images
+Since the Main thread only accesses localCount after the threads have finished (join), there is zero risk of a race condition, and you don't need any special keywords like synchronized.
+
+One last check on localCount
+Make sure localCount in your WordCountThread class is not marked as private. It needs to be package-private (no modifier) or public so Main can see it:
+
+Java
+class WordCountThread extends Thread {
+    int localCount = 0; // Accessible by Main
+    // ... rest of code
+}
+Would you like me to help you verify that the very last line of the file is being included in your numLines / numThreads calculation?
+
+You said
+import java.io.BufferedReader;
+
+import java.io.File;
+
+import java.io.FileReader;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+
+
+public class Main {
+
+public static void main(String[] args) {
+
+// Initialize threads
+
+// CompositeThread t1 = new CompositeThread(50);
+
+// GrayscaleRunnable r = new GrayscaleRunnable("input.jpg", "output.jpg");
+
+// WordCountThread t3 = new WordCountThread("data.txt");
+
+// Thread t2 = new Thread(r);
+
+//
+
+// // Start threads
+
+// t1.start();
+
+// t2.start();
+
+// t3.start();
+
+
+
+List<Thread> Composites = new ArrayList<>();
+
+List<Thread> Grayscales = new ArrayList<>();
+
+List<Thread> Wordcounts = new ArrayList<>();
+
+
+
+int numThreads = 10;
+
+
+
+//count number of lines
+
+int numLines = 0;
+
+try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))){
+
+while(br.readLine()!=null){
+
+numLines++;
+
+}
+
+} catch(IOException e){
+
+System.out.println(e.getMessage());
+
+}
+
+
+
+int numLinesPerThread = numLines/numThreads;
+
+for(int i = 0; i<numThreads; i++){
+
+int start = i*numLinesPerThread;
+
+int end = (i+1)*numLinesPerThread;
+
+Wordcounts.add(new WordCountThread("data.txt", start, end));
+
+}
+
+
+
+for(Thread w : Wordcounts){
+
+w.start();
+
+}
+
+
+
+for(Thread w: Wordcounts){
+
+try{
+
+w.join();
+
+} catch(InterruptedException e){
+
+System.out.println(e.getMessage());
+
+}
+
+}
+
+
+
+int totCount = 0;
+
+for(Thread t: Wordcounts){
+
+WordCountThread w = (WordCountThread)t;
+
+totCount+=w.localCount;
+
+}
+
+System.out.println("Total count: " + totCount);
+
+
+
+}
+
+}
+
+import java.io.BufferedReader;
+
+import java.io.FileReader;
+
+
+
+class WordCountThread extends Thread {
+
+private String filePath;
+
+int start;
+
+int end;
+
+int localCount = 0;
+
+
+
+public WordCountThread(String filePath, int start, int end) {
+
+this.filePath = filePath;
+
+this.start = start;
+
+this.end = end;
+
+}
+
+
+
+@Override
+
+public void run() {
+
+
+
+try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+String line;
+
+int curr = 0;
+
+while ((line = br.readLine()) != null) {
+
+if(curr>=start && curr < end ){
+
+String[] words = line.trim().split("\\s+");
+
+if (!line.isEmpty()) localCount += words.length;
+
+}
+
+curr++;
+
+if(curr==end) break;
+
+}
+
+
+
+} catch (Exception e) {
+
+System.out.println("File Error: " + e.getMessage());
+
+}
+
+}
+
+}
+
+
+
+still zero
+
+Gemini said
+The logic is almost there, but there are two main reasons why you are likely getting 0 (or a number much lower than expected).
+
+1. The line.isEmpty() Check
+In your run() method, you have this line:
+if (!line.isEmpty()) localCount += words.length;
+
+When you call line.trim().split("\\s+"), the original line variable remains unchanged. If the line was  word1 word2 , line.isEmpty() is false. However, if the line was empty or just whitespace, line.isEmpty() might be false while your logic expects it to be true. More importantly, if line is an empty string, split on a regex often returns an array containing one empty string (length 1), not length 0.
+
+Fix: Check the length of the words array or check if the first element is empty.
+
+2. The Integer Division "Remainder" Problem
+If your file has 48 lines and you use 10 threads:
+
+numLinesPerThread = 48 / 10 = 4.
+
+Thread 0: 0-4
+
+Thread 1: 4-8
+
+...
+
+Thread 9: 36-40
+
+Lines 40 to 48 are never read.
+
+If your file is small (e.g., 9 lines) and you have 10 threads, numLinesPerThread becomes 0. Every thread gets a range of start: 0, end: 0, and the loop curr < end never executes. This results in 0.
+
+Corrected WordCountThread logic
+Update your run method to ensure you handle the string splitting correctly:
+
+Java
+@Override
+public void run() {
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        int curr = 0;
+        while ((line = br.readLine()) != null) {
+            if (curr >= start && curr < end) {
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty()) { // Check the TRIMMED version
+                    String[] words = trimmed.split("\\s+");
+                    localCount += words.length;
+                }
+            }
+            curr++;
+            if (curr >= end) break;
+        }
+    } catch (Exception e) {
+        System.out.println("File Error: " + e.getMessage());
+    }
+}
+Corrected Main logic
+Ensure the last thread picks up the "leftover" lines from the division:
+
+Java
+int numLinesPerThread = numLines / numThreads;
+
+for (int i = 0; i < numThreads; i++) {
+    int start = i * numLinesPerThread;
+    // The last thread must take everything until the end of the file
+    int end = (i == numThreads - 1) ? numLines : (i + 1) * numLinesPerThread;
+
+    // If numLines < numThreads, some threads will have start == end and do nothing
+    if (start < end) {
+        Wordcounts.add(new WordCountThread("data.txt", start, end));
+    }
+}
+One Final Debugging Tip
+If it is still zero, add a print statement inside the if(curr >= start && curr < end) block:
+System.out.println("Thread " + start + " reading: " + line);
+
+If you don't see that print, it means your numLines is 0 or your start/end logic is resulting in ranges that don't match the line numbers in the file.
+
+Would you like me to help you modify the code to count words by byte offset instead of line numbers so you don't have to read the file twice?
+
+You said
+/Library/Java/JavaVirtualMachines/jdk-24.jdk/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=50775 -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /Users/gianne/Development/java_prog/Threads_Study_March3/out/production/Threads_Study_March3 Main
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Reading from line 0 to 0
+
+Total count: 0
+
+
+
+Process finished with exit code 0
+
+
+
+import java.io.BufferedReader;
+
+import java.io.File;
+
+import java.io.FileReader;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+
+
+public class Main {
+
+public static void main(String[] args) {
+
+// Initialize threads
+
+// CompositeThread t1 = new CompositeThread(50);
+
+// GrayscaleRunnable r = new GrayscaleRunnable("input.jpg", "output.jpg");
+
+// WordCountThread t3 = new WordCountThread("data.txt");
+
+// Thread t2 = new Thread(r);
+
+//
+
+// // Start threads
+
+// t1.start();
+
+// t2.start();
+
+// t3.start();
+
+
+
+List<Thread> Composites = new ArrayList<>();
+
+List<Thread> Grayscales = new ArrayList<>();
+
+List<Thread> Wordcounts = new ArrayList<>();
+
+
+
+int numThreads = 10;
+
+
+
+//count number of lines
+
+int numLines = 0;
+
+try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))){
+
+while(br.readLine()!=null){
+
+numLines++;
+
+}
+
+} catch(IOException e){
+
+System.out.println(e.getMessage());
+
+}
+
+
+
+int numLinesPerThread = numLines/numThreads;
+
+for(int i = 0; i<numThreads; i++){
+
+int start = i*numLinesPerThread;
+
+int end = (i == numLinesPerThread-1) ? numLines : (i+1)*numLinesPerThread;
+
+System.out.println("Reading from line " + start + " to " + end);
+
+if(start < end) Wordcounts.add(new WordCountThread("data.txt", start, end));
+
+}
+
+
+
+for(Thread w : Wordcounts){
+
+w.start();
+
+}
+
+
+
+for(Thread w: Wordcounts){
+
+try{
+
+w.join();
+
+} catch(InterruptedException e){
+
+System.out.println(e.getMessage());
+
+}
+
+}
+
+
+
+int totCount = 0;
+
+for(Thread t: Wordcounts){
+
+WordCountThread w = (WordCountThread)t;
+
+totCount+=w.localCount;
+
+}
+
+System.out.println("Total count: " + totCount);
+
+
+
+}
+
+}
+
+Gemini said
+The "Total count: 0" and the printout Reading from line 0 to 0 happen because of a logic error in your end calculation inside the loop.
+
+The Bug
+In this line:
+int end = (i == numLinesPerThread-1) ? numLines : (i + 1) * numLinesPerThread;
+
+You are checking if i is equal to numLinesPerThread - 1. You actually want to check if i is the last thread in your loop, which is numThreads - 1.
+
+Because numLines is likely small or numThreads is 10, that condition is never true or evaluated incorrectly, causing numLinesPerThread to be 0 (if your file has fewer than 10 lines).
+
+The Fixed Loop Logic
+Java
+int numLinesPerThread = numLines / numThreads;
+
+for (int i = 0; i < numThreads; i++) {
+    int start = i * numLinesPerThread;
+
+    // Fix: Check against 'numThreads', not 'numLinesPerThread'
+    int end = (i == numThreads - 1) ? numLines : (i + 1) * numLinesPerThread;
+
+    System.out.println("Reading from line " + start + " to " + end);
+
+    // Only add the thread if there is actually work to do
+    if (start < end) {
+        Wordcounts.add(new WordCountThread("data.txt", start, end));
+    }
+}
+Why this happened
+If your data.txt has, for example, 5 lines:
+
+numLines = 5.
+
+numThreads = 10.
+
+numLinesPerThread = 5 / 10 which is 0 in integer math.
+
+Your start and end both became 0 for every iteration.
+
+Final Check on WordCountThread
+Ensure your run() method uses the trimmed version of the line to count words, otherwise, empty lines might still return a count of 1.
+
+Java
+@Override
+public void run() {
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        int curr = 0;
+        while ((line = br.readLine()) != null) {
+            if (curr >= start && curr < end) {
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty()) {
+                    // split by any whitespace (space, tab, etc.)
+                    localCount += trimmed.split("\\s+").length;
+                }
+            }
+            curr++;
+            if (curr >= end) break;
+        }
+    } catch (Exception e) {
+        System.out.println("File Error: " + e.getMessage());
+    }
+}
+Would you like me to show you how to handle the case where numThreads is greater than numLines more efficiently?
+
+
+
+
+
+Gemini is AI and can make mistakes.
+

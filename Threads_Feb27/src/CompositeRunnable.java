@@ -32,4 +32,8 @@ public class CompositeRunnable implements Runnable {
 //        System.out.println(end + " COUNT = " + count);
 //        System.out.println("MAIN COUNT = " + staticCount);
     }
+
+    int getEnd(){
+        return end;
+    }
 }
