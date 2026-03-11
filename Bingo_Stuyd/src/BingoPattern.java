@@ -14,7 +14,18 @@ public abstract class BingoPattern implements Runnable{
     public void run(){
         for(Thread t: threads){
             t.start();
+            //System.out.println(t.getState());
         }
+//
+//        for(Thread t: threads){
+//            System.out.println(t.getState());
+//        }
+
+
+        //t1 runnable end... terminate
+        //t2 runnable end... terminate
+        //t3 runnable end... terminate
+
         for(Thread t : threads){
             try {
                 t.join();

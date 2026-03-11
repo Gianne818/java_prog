@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class BingoGame implements Runnable{
 
-    private BingoCell[] result;
+    private BingoCell[] possibleCellValues;
     private boolean bingo;
 
     private Thread[] threads;
@@ -12,23 +12,31 @@ public class BingoGame implements Runnable{
     @Override
     public void run() {
         this.bingo = false;
-        result = new BingoCell[76];
+        possibleCellValues = new BingoCell[76]; //1 to 75
+
+        //initialize bingo cells, from 0-75
         for(int i = 0; i <= 75; i++){
-            result[i] = new BingoCell(i);
+            possibleCellValues[i] = new BingoCell(i);
         }
-        result[0].setPicked();
+        possibleCellValues[0].setPicked(); //result is the bonus on r=2 c=2
+
+
         Scanner sc = new Scanner(System.in);
         System.out.println("How many players? ");
         int n = sc.nextInt();
+        threads = new Thread[n];
+
+        //each player gets one bingo card. this determines the number of BingoPattern threads
         BingoCard[] cards = new BingoCard[n];
         for (int i = 0; i < n; i++){
             cards[i] = new BingoCard(this);
             System.out.println(cards[i]);
         }
+
         System.out.print("Select pattern (+ , #): ");
         sc.nextLine();
         char op = sc.nextLine().charAt(0);
-        threads = new Thread[n];
+
 
         switch(op){
             case '+':
@@ -42,11 +50,16 @@ public class BingoGame implements Runnable{
                 }
                 break;
 
+            default:
+                System.out.println("Wrong input.");
+                return;
+
         }
         for(Thread t : threads){
             t.start();
         }
 
+        //now we draw the bingo balls value
         List<Integer> chosen = new ArrayList<>();
         while(!bingo){
             int num;
@@ -54,7 +67,8 @@ public class BingoGame implements Runnable{
                 num = (int) (Math.random() * 75 + 1);
             }while(chosen.contains(num));
             chosen.add(num);
-            result[num].setPicked();
+
+            possibleCellValues[num].setPicked();
             System.out.println("CHOSEN " + num);
             System.out.println("LIST: ");
             for(int i : chosen){
@@ -62,7 +76,7 @@ public class BingoGame implements Runnable{
             }
             System.out.println();
             try{
-                Thread.sleep(500);
+                Thread.sleep(0);
             }catch (InterruptedException e){
 
             }
@@ -80,10 +94,12 @@ public class BingoGame implements Runnable{
                 }
             }
         }
+
+        synchronized(this){}
     }
 
     public BingoCell getCell(int index){
-        return result[index];
+        return possibleCellValues[index];
     }
 
     public static void main(String[] args) {

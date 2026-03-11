@@ -12,9 +12,11 @@ public class BingoCard {
 
         //TO RANDOMIZE
         Random rand = new Random();
-        HashSet<Integer> used = new HashSet<Integer>();
+
         for(int i = 0; i < 5; i++){
+            HashSet<Integer> used = new HashSet<Integer>();
             for(int j = 0; j < 5; j++){
+                if(j==2 && i==2) continue;
 
                 int num;
                 do{
@@ -38,6 +40,7 @@ public class BingoCard {
         StringBuilder sb = new StringBuilder("Card " + id + "\n");
         sb.append("B\tI\tN\tG\tO\n");
         for(int i = 0; i < 5; i++){
+
             for(int j = 0; j < 5; j++){
                 sb.append(nums[i][j]).append("\t");
             }
@@ -63,3 +66,25 @@ public class BingoCard {
         System.out.println(new BingoCard(game));
     }
 }
+
+//public class BingoCard{
+//    private BingoCell[][] nums;
+//    private static int ID = 1;
+//    private  int id;
+//
+//    public BingoCard(BingoGame game) {
+//        this.nums = nums;
+//        this.id = ID++;
+//    }
+//}
+
+/*
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+
+
+
+ */

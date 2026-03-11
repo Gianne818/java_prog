@@ -1,17 +1,18 @@
+package feb27;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         int max = 500_000;
         int prev = 2;
-        int thr = 100;
+        int thr = 10;
         int div = max/thr;
         List<Thread> composites = new ArrayList<>();
         for(int i = 1; i<=thr; i++){
-//            composites.add(new Thread(new CompositeRunnable(50_000*i+1, 50_000*(i+1))));
+//            composites.add(new Thread(new feb27.CompositeRunnable(50_000*i+1, 50_000*(i+1))));
             composites.add(new Thread(new CompositeRunnable(prev, i == thr ? max : div*i)));
             prev = div * i + 1;
         }
@@ -47,13 +48,13 @@ public class Main {
             }
         }
         long end = System.currentTimeMillis();
-        System.out.println("MAIN COUNT on main: " + CompositeRunnable.staticCount);
+        System.out.println("MAIN COUNT on main: " + CompositeRunnable.count);
         System.out.println("MAIN TIME: " + (end-start));
 
         //indeterminancy, threads will fight for resources,  who gets the output console first
 //        List<Thread> threads = new ArrayList<>();
 //        for(int i = 0; i<1000; i++){
-//            threads.add(new NamedThread("Thread " + (i+1)));
+//            threads.add(new feb27.NamedThread("Thread " + (i+1)));
 //        }
 //
 //        for(Thread t : threads){
@@ -66,14 +67,14 @@ public class Main {
 
 //        List<Thread> runnables = new ArrayList<>();
 //        for(int i = 0; i<1000; i++){
-//            runnables.add(new Thread(new NamedRunnable("Runnable " + (i+1))));
+//            runnables.add(new Thread(new feb27.NamedRunnable("Runnable " + (i+1))));
 //        }
 //
 //        for(Thread r : runnables){
 //            r.start();
 //        }
 //
-//        NamedThread gianneThread = new NamedThread("Gianne");
+//        feb27.NamedThread gianneThread = new feb27.NamedThread("Gianne");
 //        gianneThread.start(); //start starts a new thread. calling run will just put call the run function within the same thread
 //
 //        System.out.println("Mana si main");

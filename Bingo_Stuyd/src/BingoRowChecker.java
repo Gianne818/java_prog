@@ -7,12 +7,11 @@ public class BingoRowChecker extends BingoChecker{
 
     @Override
     public void run() {
-
             for(int col = 0; col < 5; col++){
                 if(!getCard().getCell(row, col).isPicked()){
                     synchronized (getCard().getCell(row, col)){
                         try {
-                            getCard().getCell(row, col).wait();
+                            getCard().getCell(row, col).wait(); //natulog si rowchecker
                         } catch (InterruptedException e) {
                             System.out.println("Card " + getCard().getId() + "'s row loses while waiting for " + getCard().getCell(row, col));
                             return;
