@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="430.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cruz_la6_gui.item_9.GeographyQuizController">
+   <children>
+      <BorderPane layoutX="41.0" layoutY="36.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="522.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackBtnClick" text="Back" visible="false">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNextBtnClick" text="Next">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Your Score:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="scoreLabel" text="0/3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="panel1" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10" visible="true" StackPane.alignment="CENTER">
+                     <children>
+                        <Label text="What is the capital of France?">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <TextField fx:id="question1TextField" />
+                     </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="panel2" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10" visible="false" StackPane.alignment="CENTER">
+                     <children>
+                        <Label text="What is the capital of Japan?">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <TextField fx:id="question2TextField" />
+                     </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="panel3" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10" visible="false" StackPane.alignment="CENTER">
+                     <children>
+                        <Label text="What is the capital of Germany?">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <TextField fx:id="question3TextField" />
+                     </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="panel4" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10" visible="false" StackPane.alignment="CENTER">
+                     <children>
+                        <Label text="Congratulations! You have finished the quiz.">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                     </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

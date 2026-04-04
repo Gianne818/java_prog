@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="327.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cruz_la6_gui.item_1.NumberCounterController">
+   <children>
+      <Label fx:id="countLabel" alignment="CENTER" layoutX="261.0" layoutY="106.0" prefHeight="17.0" prefWidth="79.0" text="0" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <HBox layoutX="86.0" layoutY="170.0" prefHeight="101.0" prefWidth="305.0" spacing="80.0">
+         <children>
+            <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#onBtnClick" text="Decrease">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#onBtnClick" text="Increase">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets left="20.0" right="20.0" />
+   </padding>
+</AnchorPane>

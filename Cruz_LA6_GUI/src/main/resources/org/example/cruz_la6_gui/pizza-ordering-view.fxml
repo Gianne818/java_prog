@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cruz_la6_gui.item_2.PizzaOrderController">
+   <children>
+      <VBox layoutX="100.0" layoutY="33.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="236.0" prefWidth="400.0" spacing="15.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="33.0">
+         <children>
+            <Label prefHeight="23.0" prefWidth="43.0" text="Size:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="pizzaSizeChoice" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="356.0" />
+            <Label text="Toppings:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="pizzaToppingsChoice" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="356.0" />
+            <Label text="Extra Cheese:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="extraCheeseChoice" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="356.0" />
+         </children>
+      </VBox>
+      <Button fx:id="calculateButton" layoutX="233.0" layoutY="298.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnClick" prefHeight="20.0" prefWidth="100.0" text="Calculate Total" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="298.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="totalLabel" alignment="CENTER" layoutX="271.0" layoutY="352.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="23.0" prefWidth="58.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="352.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
