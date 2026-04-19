@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #c3d2de;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapril14.screens.login.LoginController">
+   <children>
+      <HBox alignment="CENTER" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom, #C3D2DE,  #867e32);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="402.0" prefWidth="601.0" spacing="15.0" style="-fx-background-radius: 20; -fx-background-color: #F3F1EB;">
+               <children>
+                  <Label text="ENTER YOUR CREDENTIALS">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Username">
+                           <font><Font size="14.0" /></font>
+                        </Label>
+                        <TextField fx:id="tfUsername" maxWidth="300.0" style="-fx-background-radius: 20;" />
+
+                        <Label style="-fx-font-weight: bold;" text="Password">
+                           <font><Font size="14.0" /></font>
+                        </Label>
+                        <PasswordField fx:id="pfPassword" maxWidth="300.0" style="-fx-background-radius: 20;" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="No account? " />
+                        <Label fx:id="labelRegisterLink" onMouseClicked="#onRegisterLinkLabelClick" style="-fx-cursor: hand;" text="Register Here!" textFill="#508997" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginButtonClick" style="-fx-background-color: #554436; -fx-background-radius: 60;" text="LOGIN" textFill="#f3f1eb">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow height="50.0" radius="24.5" width="50.0">
+                           <color><Color opacity="0.47" /></color>
+                        </DropShadow>
+                     </effect>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>
